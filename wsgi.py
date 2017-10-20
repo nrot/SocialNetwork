@@ -15,11 +15,13 @@ def make_app():
 
 if __name__ == '__main__':
 	app = make_app()
-	port = os.environ['OPENSHIFT_PYTHON_PORT']
+	
 	try:
 		address = os.environ['OPENSHIFT_PYTHON_IP']
+		port = os.environ['openshift_python_port']
 	except KeyError:
-		print('Error take ip use None')
+		print('Error take ip or port use None or 8080')
 		address = None
+		port = 8080
 	app.listen(port, address=address)
 	tornado.ioloop.IOLoop.current().start()
